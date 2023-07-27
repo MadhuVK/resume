@@ -1,0 +1,41 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+%-------------------------------------------------------------------------------
+% CONFIGURATIONS
+%-------------------------------------------------------------------------------
+% A4 paper size by default, use 'letterpaper' for US letter
+\documentclass[12pt, a4paper]{awesome-cv}
+
+\geometry{left=1cm, top=1cm, right=1cm, bottom=1cm, footskip=.5cm}
+\fontdir[fonts/]
+
+% Awesome Colors: emerald, skyblue, red, pink, orange, nephritis, concrete, darknight
+\colorlet{awesome}{awesome-emerald}
+
+\setbool{acvSectionColorHighlight}{true}
+
+
+% Available options: circle|rectangle,edge/noedge,left/right
+% \photo[rectangle,edge,right]{./examples/profile}
+\name{Madhu}{Krishnan}
+\position{{\enskip\cdotp\enskip}Software Engineer{\enskip\cdotp\enskip}Backend \& Distributed Systems{\enskip\cdotp\enskip}}
+%\address{Los Angeles, CA}
+
+\homepage{www.madhuvk.com}
+\email{ping@madhuvk.com}
+\linkedin{madhuvk}
+\github{madhuvk}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+\makecvheader[C] %(C: center, L: left, R: right)
+
+%\input{resume/summary}
+\input{resume/education}
+\input{resume/skills}
+\input{resume/experience}
+\input{resume/research}
+\input{resume/projects}
+
+\end{document}
