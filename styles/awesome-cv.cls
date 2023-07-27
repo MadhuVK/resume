@@ -14,7 +14,7 @@
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
-\ProvidesClass{awesome-cv}[2023/04/27 v2.0.0 Awesome Curriculum Vitae Class]
+\ProvidesClass{styles/awesome-cv}[2023/04/27 v2.0.0 Awesome Curriculum Vitae Class]
 \NeedsTeXFormat{LaTeX2e}
 
 

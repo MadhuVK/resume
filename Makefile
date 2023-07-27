@@ -27,7 +27,9 @@ default: $(TARGET)
 ## Primary build targets
 
 $(TARGET): $(TARGET_NAME).tex
-	$(TEXCMD) $<
+	@echo "Compiling $(TARGET)"
+	@$(TEXCMD) $< > /dev/null
+	@scripts/clean_pdf $@
 
 ## Cleanup targets
 

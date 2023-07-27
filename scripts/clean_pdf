@@ -1,0 +1,19 @@
+#!/bin/zsh
+
+if [[ -z "$1" ]]; then
+  >&2 echo "Usage: ${(j: :)${(s.::.)0#_}} <pdf>"
+  return 1
+fi
+
+pdf="$1" 
+type="$(file -b $pdf)" 
+if [[ ${type%% *} != "PDF" ]]; then
+  >&2 echo "File is not a PDF document"
+  return 1
+fi
+
+echo "Stripping metadata with exiftool..."
+exiftool -overwrite_original_in_place -all= "$pdf"
+
+echo "Linearizing with qpdf..."
+qpdf --linearize --replace-input "$pdf"
