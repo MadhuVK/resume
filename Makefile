@@ -11,7 +11,7 @@
 ## Variables & Definitions
 SHELL := /bin/bash
 
-PROJECT := github.com/madhuvk/resume.git
+PROJECT := https://github.com/madhuvk/resume
 TEX = lualatex  
 TEX_FLAGS ?= 
 TEXCMD = $(TEX) $(TEX_FLAGS)
@@ -21,15 +21,28 @@ TARGET := $(TARGET_NAME).pdf
 
 ## Primary entry-point targets
 
+.PHONY: help
+help:
+	@echo -e "make [strip_pdf] (Default)\n\
+		\nmake <help> - Print help\
+		\nmake <distclean> - Remove all make output\
+		\nmake <clean> - Remove logs and auxillary make output files\
+		\nmake <resume.pdf> - Compile resume using lualatex\
+		\nmake <strip_pdf> - Remove metadata from resume.pdf\
+"
+
 .PHONY: default
-default: $(TARGET)
+default: strip_pdf
 
 ## Primary build targets
 
 $(TARGET): $(TARGET_NAME).tex
 	@echo "Compiling $(TARGET)"
 	@$(TEXCMD) $< > /dev/null
-	@scripts/clean_pdf $@
+
+.PHONY: strip_pdf
+strip_pdf: $(TARGET)
+	@scripts/strip_pdf $<
 
 ## Cleanup targets
 
