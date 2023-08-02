@@ -20,6 +20,8 @@ TARGET_NAME := resume
 TARGET := $(TARGET_NAME).pdf
 
 ## Primary entry-point targets
+.PHONY: default
+default: strip_pdf
 
 .PHONY: help
 help:
@@ -30,9 +32,6 @@ help:
 		\nmake <resume.pdf> - Compile resume using lualatex\
 		\nmake <strip_pdf> - Remove metadata from resume.pdf\
 "
-
-.PHONY: default
-default: strip_pdf
 
 ## Primary build targets
 
