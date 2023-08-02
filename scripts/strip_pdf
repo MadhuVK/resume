@@ -1,19 +1,30 @@
-#!/bin/zsh
+#!/bin/bash
+
+SCRIPT=${BASH_SOURCE[0]##*/}
+
+CHECK_FILE=$(command -v file)
+EXIFTOOL=$(command -v exiftool)
+QPDF=$(command -v qpdf)
 
 if [[ -z "$1" ]]; then
-  >&2 echo "Usage: ${(j: :)${(s.::.)0#_}} <pdf>"
-  return 1
+  >&2 echo "Usage: '$SCRIPT <pdf>'"
+  exit 1
+fi
+
+if [[ -z $CHECK_FILE || -z $EXIFTOOL || -z $QPDF ]]; then
+  >&2 echo "Missing one of the following '$SCRIPT' dependencies: ['file', 'exiftool', 'qpdf']."
+  exit 1
 fi
 
 pdf="$1" 
-type="$(file -b $pdf)" 
+type="$($CHECK_FILE -b $pdf)"
 if [[ ${type%% *} != "PDF" ]]; then
   >&2 echo "File is not a PDF document"
-  return 1
+  exit 1
 fi
 
 echo "Stripping metadata with exiftool..."
-exiftool -overwrite_original_in_place -all= "$pdf"
+$EXIFTOOL -overwrite_original_in_place -all= "$pdf"
 
 echo "Linearizing with qpdf..."
-qpdf --linearize --replace-input "$pdf"
+$QPDF --linearize --replace-input "$pdf"
