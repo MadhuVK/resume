@@ -43,7 +43,7 @@ help:
 
 .PHONY: container
 container: container_image
-	$(CONTAINER) run -it --rm -w /workdir -v .:/workdir $(CONTAINER_IMAGE) $(MAKE) strip_pdf
+	$(CONTAINER) run --rm -w /workdir -v .:/workdir $(CONTAINER_IMAGE) $(MAKE) strip_pdf
 
 ## Primary build targets
 

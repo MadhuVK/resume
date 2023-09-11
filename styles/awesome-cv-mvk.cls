@@ -14,7 +14,7 @@
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
-\ProvidesClass{styles/awesome-cv-mvk}[2023/08/01 v2.1.0 Awesome Curriculum Vitae Class (MVK Revision)]
+\ProvidesClass{styles/awesome-cv-mvk}[2023/09/11 v2.1.1 Awesome Curriculum Vitae Class (MadhuVK Revision)]
 \NeedsTeXFormat{LaTeX2e}
 
 
@@ -609,7 +609,7 @@
   \vspace{-2mm}
 }
 
-% Define an entry of cv degrees 
+% Define an entry of cv degrees
 % Usage: \cventry{<title>}{<date>}{<degree>}{description>}
 \newcommand*{\cveducation}[4]{%
   \vspace{-2.0mm}
@@ -617,7 +617,7 @@
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
     \entrytitlestyle{#1} & \entrydatestyle{#2} \\
-    \entrypositionstyle{#3} \\ 
+    \entrypositionstyle{#3} \\
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#4}}
   \end{tabular*}%
 }
@@ -649,9 +649,9 @@
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \entrytitlestyle{#1} & \entrylocationstyle{#2} \\
-    \entrypositionstyle{#3} & \entrydatestyle{#4} \\
-    \entrypositionstyle{#5} & \entrydatestyle{#6} \\
+    \entrytitlestyle{#1} & \entrylocationstyle{#2} \\[-1.0mm]
+    \entrypositionstyle{#3} & \entrydatestyle{#4} \\[-1.0mm]
+    \entrypositionstyle{#5} & \entrydatestyle{#6} \\[-1.0mm]
     \entrypositionstyle{#7} & \entrydatestyle{#8} \\
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#9}}
   \end{tabular*}%
