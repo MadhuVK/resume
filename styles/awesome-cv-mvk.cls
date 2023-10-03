@@ -42,7 +42,7 @@
 % Needed to make fixed length table
 \RequirePackage{array}
 % Needed to handle list environment
-\RequirePackage{enumitem}
+\RequirePackage[shortlabels]{enumitem}
 % Needed to handle text alignment
 \RequirePackage{ragged2e}
 % Needed to configure page layout
@@ -180,15 +180,15 @@
 
 % For elements of entry
 \newcommand*{\entrytitlestyle}[1]{{\fontsize{10.5pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\entrypositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\scshape\color{graytext} #1}}
-\newcommand*{\entrydatestyle}[1]{{\fontsize{8pt}{1em}\bodyfont\slshape\color{awesome} #1}}
+\newcommand*{\entrypositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\scshape\color{graytext} #1}}
+\newcommand*{\entrydatestyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\slshape\color{awesome} #1}}
 \newcommand*{\entrylocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\slshape\color{graytext} #1}}
-\newcommand*{\descriptionstyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\upshape\color{darktext} #1}}
+\newcommand*{\descriptionstyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\upshape\color{darktext} #1}}
 
 % For elements of honor
 \newcommand*{\honortitlestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext} #1}}
-\newcommand*{\honorpositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\honordatestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext} #1}}
+\newcommand*{\honorpositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
+\newcommand*{\honordatestyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\color{graytext} #1}}
 \newcommand*{\honorlocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\slshape\color{awesome} #1}}
 
 % For elements of skill
@@ -381,8 +381,9 @@
 \newcommand{\acvHeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\acvSectionTopSkip}{1mm}
-\newcommand{\acvSectionContentTopSkip}{2mm}
+\newcommand{\acvSectionTopSkip}{0mm}
+\newcommand{\acvSectionContentTopSkip}{-.5mm}
+\newcommand{\acvEntrySectionSkip}{-5.5mm}
 
 
 %-------------------------------------------------------------------------------
@@ -594,30 +595,19 @@
 % Usage: \cvsubsection{<subsection-title>}
 \newcommand{\cvsubsection}[1]{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-3mm}
   \subsectionstyle{#1}
   \phantomsection
 }
 
-% Define a paragraph for CV
-\newenvironment{cvparagraph}{%
-  \vspace{\acvSectionContentTopSkip}
-  \vspace{-3mm}
-  \paragraphstyle
-}{%
-  \par
-  \vspace{-2mm}
-}
-
 % Define an entry of cv degrees
-% Usage: \cventry{<title>}{<date>}{<degree>}{description>}
+% Usage: \cveducation{<title>}{<date>}{<degree>}{description>}
 \newcommand*{\cveducation}[4]{%
-  \vspace{-2.0mm}
+  \vspace{\acvSectionContentTopSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
     \entrytitlestyle{#1} & \entrydatestyle{#2} \\
-    \entrypositionstyle{#3} \\
+    \entrypositionstyle{#3} \\ [\acvEntrySectionSkip]
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#4}}
   \end{tabular*}%
 }
@@ -629,38 +619,10 @@
 }{%
   \end{center}
 }
-% Define an entry of cv information
-% Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
-\newcommand*{\cventry}[5]{%
-  \vspace{-2.0mm}
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \entrytitlestyle{#2} & \entrylocationstyle{#3} \\
-    \entrypositionstyle{#1} & \entrydatestyle{#4} \\
-    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
-  \end{tabular*}%
-}
-
-% Hack: Define an entry of cv information with 3 entries
-% Usage: \cvthreeentry{<organization>}{<location>}[{<position>}{<date>}]x3{<description>}
-\newcommand*{\cvthreeentry}[9]{%
-  \vspace{-2.0mm}
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \entrytitlestyle{#1} & \entrylocationstyle{#2} \\[-1.0mm]
-    \entrypositionstyle{#3} & \entrydatestyle{#4} \\[-1.0mm]
-    \entrypositionstyle{#5} & \entrydatestyle{#6} \\[-1.0mm]
-    \entrypositionstyle{#7} & \entrydatestyle{#8} \\
-    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#9}}
-  \end{tabular*}%
-}
 
 % Define an environment for cvhonor
 \newenvironment{cvhonors}{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-2mm}
   \begin{center}
     \setlength\tabcolsep{0pt}
     \setlength{\extrarowheight}{0pt}
@@ -669,16 +631,10 @@
     \end{tabular*}
   \end{center}
 }
-% Define a line of cv information(honor, award or something else)
-% Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
-\newcommand*{\cvhonor}[4]{%
-  \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
-}
 
 % Define an environment for cvskill
 \newenvironment{cvskills}{%
   \vspace{\acvSectionContentTopSkip}
-  \vspace{-2.0mm}
   \begin{center}
     \setlength\tabcolsep{1ex}
     \setlength{\extrarowheight}{0pt}
@@ -687,6 +643,41 @@
     \end{tabular*}
   \end{center}
 }
+
+% Define an entry of cv information
+% Usage: \cventry{<position>}{<title>}{<location>}{<date>}{<description>}
+\newcommand*{\cventry}[5]{%
+  \vspace{\acvSectionContentTopSkip}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+    \entrytitlestyle{#2} & \entrylocationstyle{#3} \\ [-0.5mm]
+    \entrypositionstyle{#1} & \entrydatestyle{#4} \\ [-4.0mm]
+    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
+  \end{tabular*}%
+}
+
+% Hack: Define an entry of cv information with 3 entries
+% Usage: \cvthreeentry{<organization>}{<location>}[{<position>}{<date>}]x3{<description>}
+\newcommand*{\cvthreeentry}[9]{%
+  \vspace{\acvSectionContentTopSkip}
+  \setlength\tabcolsep{0pt}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
+    \entrytitlestyle{#1} & \entrylocationstyle{#2} \\ [-0.5mm]
+    \entrypositionstyle{#3} & \entrydatestyle{#4} \\[-1.5mm]
+    \entrypositionstyle{#5} & \entrydatestyle{#6} \\[-1.5mm]
+    \entrypositionstyle{#7} & \entrydatestyle{#8} \\ [-4.0mm]
+    \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#9}}
+  \end{tabular*}%
+}
+
+% Define a line of cv information(honor, award or something else)
+% Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
+\newcommand*{\cvhonor}[4]{%
+  \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+}
+
 % Define a line of cv information(skill)
 % Usage: \cvskill{<type>}{<skillset>}
 \newcommand*{\cvskill}[2]{%
@@ -695,66 +686,11 @@
 
 % Define an environment for cvitems(for cventry)
 \newenvironment{cvitems}{%
-  \vspace{-4.0mm}
   \begin{justify}
-  \begin{itemize}[leftmargin=2ex, nosep, noitemsep]
-    \setlength{\parskip}{1.5pt}
-    \renewcommand{\labelitemi}{\bullet}
+    \begin{itemize}[leftmargin=2.25ex, itemsep=0.20ex, parsep=0.50ex]
+      \renewcommand{\labelitemi}{\bullet}
 }{%
   \end{itemize}
   \end{justify}
-  \vspace{-4.0mm}
-}
-
-
-%-------------------------------------------------------------------------------
-%                Commands for elements of Cover Letter
-%-------------------------------------------------------------------------------
-% Define an environment for cvletter
-\newenvironment{cvletter}{%
-  \lettertextstyle
-}{%
-}
-
-% Define a section for the cover letter
-% Usage: \lettersection{<section-title>}
-\newcommand{\lettersection}[1]{%
-  \par\addvspace{2.5ex}
-  \phantomsection{}
-  \lettersectionstyle{#1}
-  \color{sectiondivider}\vhrulefill{0.9pt}
-  \par\nobreak\addvspace{0.4ex}
-  \lettertextstyle
-}
-
-% Define a title of the cover letter
-% Usage: \makelettertitle
-\newcommand*{\makelettertitle}{%
-  \vspace{8.4mm}
-  \setlength\tabcolsep{0pt}
-  \setlength{\extrarowheight}{0pt}
-  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \recipienttitlestyle{\@recipientname} & \letterdatestyle{\@letterdate}
-  \end{tabular*}
-  \begin{singlespace}
-    \recipientaddressstyle{\@recipientaddress} \\\\
-  \end{singlespace}
-  \ifthenelse{\isundefined{\@lettertitle}}
-    {}
-    {\lettertitlestyle{\@lettertitle} \\}
-  \lettertextstyle{\@letteropening}
-}
-
-% Define a closing of the cover letter
-% Usage: \makeletterclosing
-\newcommand*{\makeletterclosing}{%
-  \vspace{3.4mm}
-  \lettertextstyle{\@letterclosing} \\\\
-  \letternamestyle{\@firstname\ \@lastname}
-  \ifthenelse{\isundefined{\@letterenclosure}}
-    {\\}
-    {%
-      \\\\\\
-      \letterenclosurestyle{\@letterenclname: \@letterenclosure} \\
-    }
+  \vspace{\acvEntrySectionSkip}
 }

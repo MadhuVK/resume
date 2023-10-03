@@ -10,12 +10,15 @@
     {Apr. 2021 - Jun. 2022} % Date(s)
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
-        \item {Designed and implemented a new \textbf{queuing system with pg-boss} to improve reliability and fault-tolerance of the messaging system; new features included resilience to dropped messages, automatic retries, and service monitors per queue.}
-        \item {Rewrote the messaging system with \textbf{GraphQL} APIs with backing \textbf{Typescript + Postgres} implementations as part of a datastore migration from Firebase.}
-        \item {Designed improvements including recurring court date events and many staff-to-client associations, and Coffeescript-to-Typescript migration.}
+        \item {Designed and implemented backend requirements for product features necessary for new and expiring contracts - video chat, announcements, recurring events, and multiple-staff associations.}
+        \item {Took ownership of the the messaging system services and contributed major enhancements for system reliability and 10x scale.}
+        \begin{itemize}
+          \item {Introduced queue alerts, retries, backpressure, and rate-limiting for improved observability and resiliency.}
+          \item {Migrated queues away from \textbf{Firebase}, and re-wrote data access to use \textbf{GraphQL} and \textbf{Postgres} for improved tail latencies and throughput.}
+        \end{itemize}
       \end{cvitems}
     }
-    
+
 %---------------------------------------------------------
   \cvthreeentry
     {Salesforce} % Organization
@@ -28,13 +31,17 @@
     {Jun. 2015 - Sep. 2015}
     {
       \begin{cvitems} % Description(s) of tasks/responsibilities
-        \item {Designed and implemented performance improvements in legacy search query execution, leading to \textbf{500ms+ improvement} for some customers.}
-        \item {Led implementation for "many \textbf{Kubernetes} namespaces" interim solution for developer productivity in the early days of an AWS public cloud migration. Presented to architects and the CTO to help prioritize an improved development experience.}
-        \item {Shipped critical MVP features for SQEP, one of the first \textbf{gRPC microservices} at Salesforce, used to provide real-time execution of machine learning models.}
-        \item {Implemented key features to the internal \textbf{feature toggling} infrastructure, including database migrations and service alerts.}
+      \item {Worked cross-team to prioritize and perform work necessary to migrate search services to the public cloud architecture, Hyperforce.}
+        \begin{itemize}
+          \item {Lead the implementation for novel "many \textbf{Kubernetes} namespaces" solution for search team's developer productivity in order to meet strict company timelines - presented this solution to the CTO and principal architects.}
+          \item {Deployed critical \textbf{microservices} for search relevancy in the first AWS Hyperforce regions.}
+          \item {Designed and implemented critical performance improvements critical for the stricter public cloud requirements.}
+        \end{itemize}
+        \item {Designed and implemented p50 and p99 latency improvements in legacy services, necessary for the Instant Results product feature.}
+        \item {Implemented key features for \textbf{feature toggling, A/B experimentation}, and the \textbf{gRPC execution engine}.}
       \end{cvitems}
     }
-    
+
 %---------------------------------------------------------
   \cventry
     {Software Engineering Intern} % Job title
@@ -46,6 +53,6 @@
         \item {Built and tested an encrypted high-speed transport service for genome sequencing with \textbf{OpenSSL} and \textbf{C/C++}.}
       \end{cvitems}
     }
-    
+
 %---------------------------------------------------------
 \end{cventries}

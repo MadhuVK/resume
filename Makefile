@@ -15,11 +15,11 @@ SHELL := /bin/bash
 PROJECT := https://github.com/madhuvk/resume
 TEXCMD ?= $(shell command -v lualatex || echo 'TEXCMD-undefined')
 
-CONTAINER ?= $(shell command -v podman || command -v docker || echo 'CONTAINER-undefined')
 CONTAINER_IMAGE := resume-texlive
+CONTAINER ?= $(shell command -v podman || command -v docker || echo 'CONTAINER-undefined')
+CONTAINER_RUN ?= $(CONTAINER) run -it -w /workdir -v .:/workdir $(CONTAINER_IMAGE)
 
-TARGET_NAME := resume
-TARGET := $(TARGET_NAME).pdf
+TARGET := resume
 
 ## Primary entry-point targets
 .PHONY: default
@@ -43,16 +43,17 @@ help:
 
 .PHONY: container
 container: container_image
-	$(CONTAINER) run --rm -w /workdir -v .:/workdir $(CONTAINER_IMAGE) $(MAKE) strip_pdf
+	$(CONTAINER_RUN) $(MAKE) strip_pdf
 
 ## Primary build targets
 
-$(TARGET): $(TARGET_NAME).tex
-	@echo "Compiling $(TARGET). See $(TARGET_NAME).log for compilation logs/errors."
-	>/dev/null $(TEXCMD) $<
+$(TARGET).pdf: $(TARGET).tex
+	@echo "Compiling $(TARGET).pdf. See $(TARGET).log for compilation logs/errors."
+	# >/dev/null $(TEXCMD) $<
+	$(TEXCMD) $<
 
 .PHONY: strip_pdf
-strip_pdf: $(TARGET)
+strip_pdf: $(TARGET).pdf
 	@scripts/strip_pdf $<
 
 ## Auxiliary targets
@@ -65,11 +66,11 @@ container_image:
 
 .PHONY: auxclean
 auxclean:
-	rm -f $(TARGET_NAME).aux $(TARGET_NAME).log
+	-rm -f $(TARGET).aux $(TARGET).log
 
 .PHONY: distclean
 distclean:
-	rm -f $(TARGET)
+	-rm -f $(TARGET).pdf
 
 .PHONY: containerclean
 containerclean:
