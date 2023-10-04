@@ -192,8 +192,8 @@
 \newcommand*{\honorlocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\slshape\color{awesome} #1}}
 
 % For elements of skill
-\newcommand*{\skilltypestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{text} #1}}
+\newcommand*{\skilltypestyle}[1]{{\fontsize{10.0pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
+\newcommand*{\skillsetstyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\color{text} #1}}
 
 
 %-------------------------------------------------------------------------------
