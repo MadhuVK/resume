@@ -180,7 +180,7 @@
 \newcommand*{\entrytitlestyle}[1]{{\fontsize{10.5pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
 \newcommand*{\entrypositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\scshape\color{graytext} #1}}
 \newcommand*{\entrydatestyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\slshape\color{awesome} #1}}
-\newcommand*{\entrylocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\slshape\color{graytext} #1}}
+\newcommand*{\entryskillstyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\upshape\color{darktext} \textbf{Languages \& Technologies}: #1}}
 \newcommand*{\descriptionstyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\upshape\color{darktext} #1}}
 
 % For elements of honor
@@ -204,10 +204,6 @@
 % Usage: \lastname{<lastname>}
 % Usage: \familyname{<familyname>}
 \newcommand*{\name}[2]{\def\@firstname{#1}\def\@lastname{#2}}
-\newcommand*{\firstname}[1]{\def\@firstname{#1}}
-\newcommand*{\lastname}[1]{\def\@lastname{#1}}
-\newcommand*{\familyname}[1]{\def\@lastname{#1}}
-\def\@familyname{\@lastname}
 
 % Define writer's address
 % Usage: \address{<address>}
@@ -412,23 +408,25 @@
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \entrytitlestyle{#2} & \entrylocationstyle{#3} \\ [-0.5mm]
-    \entrypositionstyle{#1} & \entrydatestyle{#4} \\ [-4.0mm]
+    \entrytitlestyle{#2} \\ [-0.5mm]
+    \entrypositionstyle{#1} & \entrydatestyle{#4} \ifempty{#3}{\\ [-4.0mm]}{\\ [-0.5mm]}
+    \ifempty{#3}{\\ [-5.5mm]}{\entryskillstyle{#3} \\ [-3.5mm]}
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#5}}
   \end{tabular*}%
 }
 
 % Hack: Define an entry of cv information with 3 entries
-% Usage: \cvthreeentry{<organization>}{<location>}[{<position>}{<date>}]x3{<description>}
+% Usage: \cvthreeentry{<organization>}{<skills>}[{<position>}{<date>}]x3{<description>}
 \newcommand*{\cvthreeentry}[9]{%
   \vspace{\acvSectionContentTopSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
-    \entrytitlestyle{#1} & \entrylocationstyle{#2} \\ [-0.5mm]
+    \entrytitlestyle{#1} \\ [-0.5mm]
     \entrypositionstyle{#3} & \entrydatestyle{#4} \\[-1.5mm]
     \entrypositionstyle{#5} & \entrydatestyle{#6} \\[-1.5mm]
-    \entrypositionstyle{#7} & \entrydatestyle{#8} \\ [-4.0mm]
+    \entrypositionstyle{#7} & \entrydatestyle{#8} \ifempty{#2}{\\ [-4.0mm]}{\\ [-0.5mm]}
+    \ifempty{#2}{\\ [-3.5mm]}{\entryskillstyle{#2} \\ [-3.5mm]}
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#9}}
   \end{tabular*}%
 }
