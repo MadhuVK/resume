@@ -14,7 +14,7 @@
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
-\ProvidesClass{styles/awesome-cv-mvk}[2023/10/12 v2.2.0 Awesome Curriculum Vitae Class (MadhuVK Revision)]
+\ProvidesClass{styles/awesome-cv-mvk}[2023/11/10 v2.3.0 Awesome Curriculum Vitae Class (MadhuVK Revision)]
 \NeedsTeXFormat{LaTeX2e}
 
 
@@ -96,7 +96,7 @@
 %-------------------------------------------------------------------------------
 %% Page Layout
 % Configure page margins with geometry
-\geometry{left=2.0cm, top=1.5cm, right=2.0cm, bottom=2.0cm, footskip=.5cm}
+\geometry{left=2.0cm, top=1.5cm, right=2.0cm, bottom=2.0cm}
 
 %% Header & Footer
 % Set offset to each header and footer
@@ -254,7 +254,7 @@
 
 % Others
 \newcommand{\acvSectionTopSkip}{0mm}
-\newcommand{\acvSectionContentTopSkip}{-.5mm}
+\newcommand{\acvSectionContentTopSkip}{-.75mm}
 \newcommand{\acvEntrySectionSkip}{-5.5mm}
 
 
