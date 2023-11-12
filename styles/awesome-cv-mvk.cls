@@ -236,7 +236,7 @@
   \setlength{\headertextwidth}{\textwidth}
   \begin{minipage}[c]{\headertextwidth}
     \ifthenelse{\equal{#1}{L}}{\raggedright}{\ifthenelse{\equal{#1}{R}}{\raggedleft}{\centering}}
-    \headerfirstnamestyle{\@firstname}\space\headerlastnamestyle{\@lastname}\\[\acvHeaderAfterNameSkip]%
+    \headerfirstnamestyle{\@firstname}~~~~\headerlastnamestyle{\@lastname}\\[\acvHeaderAfterNameSkip]%
     \headerpositionstyle{\@position}\\[\acvHeaderAfterPositionSkip]
     \headersocialstyle{%
       \newbool{isstart}%
