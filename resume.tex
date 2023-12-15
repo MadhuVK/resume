@@ -4,30 +4,35 @@
 %-------------------------------------------------------------------------------
 % CONFIGURATIONS
 %-------------------------------------------------------------------------------
-\documentclass[12pt, a4paper]{styles/awesome-cv-mvk}
+\documentclass[12pt, a4paper]{styles/resume}
+\geometry{left=1.0cm, top=1.0cm, right=1.0cm, bottom=0.5cm}
 
+\definecolor{emerald}{HTML}{00A380}
+\colorlet{accent}{emerald}
+
+%-------------------------------------------------------------------------------
+% HEADER
+%-------------------------------------------------------------------------------
 \name{Madhu}{Krishnan}
-\position{
-  {\enskip\cdotp\enskip}Software Engineer
-  {\enskip\cdotp\enskip}Backend \& Distributed Systems
-  {\enskip\cdotp\enskip}
-}
+\position{Software Engineer}{Backend \& Distributed Systems}
 
-\homepage{www.madhuvk.com}
+\homepage{https://www.madhuvk.com}
 \email{ping@madhuvk.com}
 \linkedin{madhuvk}
 \github{madhuvk}
 
+%-------------------------------------------------------------------------------
+% CONTENT
 %-------------------------------------------------------------------------------
 \begin{document}
 
 \frenchspacing
 \makecvheader[C]
 
-\input{sections/education}
 \input{sections/skills}
 \input{sections/experience}
 \input{sections/research}
+\input{sections/education}
 \input{sections/projects}
 
 \end{document}

@@ -1,4 +1,4 @@
-% Awesome CV Class File
+% Resume Class File
 %
 % Original Author:
 % Claud D. Park <posquit0.bj@gmail.com>
@@ -14,7 +14,7 @@
 %-------------------------------------------------------------------------------
 %                Identification
 %-------------------------------------------------------------------------------
-\ProvidesClass{styles/awesome-cv-mvk}[2023/11/10 v2.3.0 Awesome Curriculum Vitae Class (MadhuVK Revision)]
+\ProvidesClass{styles/accent-resume}[2023/12/10 v3.0.0 Accent Resume Class]
 \NeedsTeXFormat{LaTeX2e}
 
 %-------------------------------------------------------------------------------
@@ -24,11 +24,8 @@
 % we need \paperwidth, \paperheight and \@ptsize to be defined before loading
 % geometry and fancyhdr)
 %-------------------------------------------------------------------------------
-% Options for draft or final
-\DeclareOption{draft}{\setlength\overfullrule{5pt}}
-\DeclareOption{final}{\setlength\overfullrule{0pt}}
 % Inherit options of article
-\DeclareOption*{%
+\DeclareOption*{
   \PassOptionsToClass{\CurrentOption}{article}
 }
 \ProcessOptions\relax
@@ -80,23 +77,15 @@
 \RequirePackage{bookmark}
 
 %-------------------------------------------------------------------------------
-%                Configuration for layout
-%-------------------------------------------------------------------------------
-%% Page Layout
-% Configure page margins with geometry
-\geometry{left=1.0cm, top=1.0cm, right=1.0cm, bottom=0.5cm}
-
-%-------------------------------------------------------------------------------
 %                Configuration for colors
 %-------------------------------------------------------------------------------
-% Custom colors
+% Default Colors
 \definecolor{white}{HTML}{FFFFFF}
 \definecolor{black}{HTML}{000000}
 \definecolor{darkgray}{HTML}{333333}
 \definecolor{gray}{HTML}{5D5D5D}
 \definecolor{lightgray}{HTML}{999999}
 \definecolor{dark}{HTML}{414141}
-\definecolor{emerald}{HTML}{00A380}
 
 % Text colors
 \colorlet{darktext}{dark}
@@ -105,18 +94,8 @@
 \colorlet{lighttext}{lightgray}
 \colorlet{sectiondivider}{gray}
 
-% Accent Color
-\colorlet{awesome}{emerald}
-
-% Boolean value to switch section color highlighting
-\newbool{acvSectionColorHighlight}
-\setbool{acvSectionColorHighlight}{true}
-
-% Awesome section color
-\def\@sectioncolor#1{%
-  \ifbool{acvSectionColorHighlight}{{\color{awesome}#1}}{#1}%
-}
-
+% Accent color
+\colorlet{accent}{darkgray}
 
 %-------------------------------------------------------------------------------
 %                Configuration for fonts
@@ -134,23 +113,21 @@
 % For fundamental structures
 \newcommand*{\headerfirstnamestyle}[1]{{\fontsize{30pt}{1em}\headerfontlight\color{graytext} #1}}
 \newcommand*{\headerlastnamestyle}[1]{{\fontsize{30pt}{1em}\headerfont\bfseries\color{text} #1}}
-\newcommand*{\headerpositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\scshape\color{awesome} #1}}
+\newcommand*{\headerpositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\scshape\color{accent} #1}}
 \newcommand*{\headersocialstyle}[1]{{\fontsize{8pt}{1em}\headerfont\color{text} #1}}
-\newcommand*{\sectionstyle}[1]{{\fontsize{16pt}{1em}\bodyfont\bfseries\color{text}\@sectioncolor {#1}}}
+\newcommand*{\sectionstyle}[1]{{\fontsize{16pt}{1em}\bodyfont\bfseries\color{text}\color{accent} #1}}
 \newcommand*{\subsectionstyle}[1]{{\fontsize{12pt}{1em}\bodyfont\scshape\textcolor{text}{#1}}}
 
 % For elements of entry
 \newcommand*{\entrytitlestyle}[1]{{\fontsize{10.5pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
 \newcommand*{\entrypositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\scshape\color{graytext} #1}}
-\newcommand*{\entrydatestyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\slshape\color{awesome} #1}}
+\newcommand*{\entrydatestyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\slshape\color{accent} #1}}
 \newcommand*{\entryskillstyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\upshape\color{darktext} #1}}
 \newcommand*{\descriptionstyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\upshape\color{darktext} #1}}
 
 % For elements of honor
 \newcommand*{\honortitlestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{graytext} #1}}
 \newcommand*{\honorpositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
-\newcommand*{\honordatestyle}[1]{{\fontsize{9.0pt}{1em}\bodyfont\color{graytext} #1}}
-\newcommand*{\honorlocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\slshape\color{awesome} #1}}
 
 % For elements of skill
 \newcommand*{\skilltypestyle}[1]{{\fontsize{10.0pt}{1em}\bodyfont\bfseries\color{darktext} #1}}
@@ -163,18 +140,11 @@
 
 % Define writer's name
 % Usage: \name{<firstname>}{<lastname>}
-% Usage: \firstname{<firstname>}
-% Usage: \lastname{<lastname>}
-% Usage: \familyname{<familyname>}
 \newcommand*{\name}[2]{\def\@firstname{#1}\def\@lastname{#2}}
 
 % Define writer's position
-% Usage: \position{<position>}
-\newcommand*{\position}[1]{\def\@position{#1}}
-
-% Defines writer's mobile (optional)
-% Usage: \mobile{<mobile number>}
-\newcommand*{\mobile}[1]{\def\@mobile{#1}}
+% Usage: \position{<position>}{<subposition>}
+\newcommand*{\position}[2]{\def\@position{#1}\def\@subposition{#2}}
 
 % Defines writer's email (optional)
 % Usage: \email{<email address>}
@@ -237,7 +207,11 @@
   \begin{minipage}[c]{\headertextwidth}
     \ifthenelse{\equal{#1}{L}}{\raggedright}{\ifthenelse{\equal{#1}{R}}{\raggedleft}{\centering}}
     \headerfirstnamestyle{\@firstname}~~~~\headerlastnamestyle{\@lastname}\\[\acvHeaderAfterNameSkip]%
-    \headerpositionstyle{\@position}\\[\acvHeaderAfterPositionSkip]
+    \headerpositionstyle{
+      {\enskip\cdotp\enskip}\@position
+      {\enskip\cdotp\enskip}\@subposition
+      {\enskip\cdotp\enskip}
+    }\\[\acvHeaderAfterPositionSkip]
     \headersocialstyle{%
       \newbool{isstart}%
       \setbool{isstart}{true}%
@@ -251,7 +225,7 @@
         {}%
         {%
           \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://\@homepage}{\faHome\acvHeaderIconSep\@homepage}%
+          \href{\@homepage}{\faHome\acvHeaderIconSep\@homepage}%
         }%
       \ifthenelse{\isundefined{\@github}}%
         {}%
@@ -267,6 +241,50 @@
         }%
     } \\[\acvHeaderAfterSocialSkip]%
   \end{minipage}%
+}
+
+
+% Define an environment for cvitems(for cventry)
+\newenvironment{cvitems}{%
+  \begin{justify}
+    \begin{itemize}[leftmargin=2.25ex, itemsep=0.20ex, parsep=0.50ex]
+      \renewcommand{\labelitemi}{\bullet}
+}{%
+  \end{itemize}
+  \end{justify}
+  \vspace{\acvEntrySectionSkip}
+}
+
+% Define an environment for cventry
+\newenvironment{cventries}{%
+  \vspace{\acvSectionContentTopSkip}
+  \begin{center}
+}{%
+  \end{center}
+}
+
+% Define an environment for cvhonor
+\newenvironment{cvhonors}{%
+  \vspace{\acvSectionContentTopSkip}
+  \begin{center}
+    \setlength\tabcolsep{0pt}
+    \setlength{\extrarowheight}{0pt}
+    \begin{tabular*}{\textwidth}{R{2.5cm} L{\textwidth - 2.0cm} R{2.5cm}}
+}{%
+    \end{tabular*}
+  \end{center}
+}
+
+% Define an environment for cvskill
+\newenvironment{cvskills}{%
+  \vspace{\acvSectionContentTopSkip}
+  \begin{center}
+    \setlength\tabcolsep{1ex}
+    \setlength{\extrarowheight}{0pt}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth - 2.75cm}}
+}{%
+    \end{tabular*}
+  \end{center}
 }
 
 % Define a section for CV
@@ -297,38 +315,6 @@
     \entrypositionstyle{#3} \\ [\acvEntrySectionSkip]
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#4}}
   \end{tabular*}%
-}
-
-% Define an environment for cventry
-\newenvironment{cventries}{%
-  \vspace{\acvSectionContentTopSkip}
-  \begin{center}
-}{%
-  \end{center}
-}
-
-% Define an environment for cvhonor
-\newenvironment{cvhonors}{%
-  \vspace{\acvSectionContentTopSkip}
-  \begin{center}
-    \setlength\tabcolsep{0pt}
-    \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} C{1.5cm} L{\textwidth - 4.0cm} R{2.5cm}}
-}{%
-    \end{tabular*}
-  \end{center}
-}
-
-% Define an environment for cvskill
-\newenvironment{cvskills}{%
-  \vspace{\acvSectionContentTopSkip}
-  \begin{center}
-    \setlength\tabcolsep{1ex}
-    \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r L{\textwidth - 2.75cm}}
-}{%
-    \end{tabular*}
-  \end{center}
 }
 
 % Define an entry of cv information
@@ -362,24 +348,13 @@
 }
 
 % Define a line of cv information(honor, award or something else)
-% Usage: \cvhonor{<position>}{<title>}{<location>}{<date>}
-\newcommand*{\cvhonor}[4]{%
-  \honordatestyle{#4} & \honorpositionstyle{#1}, \honortitlestyle{#2} & \honorlocationstyle{#3} \\
+% Usage: \cvhonor{<position>}{<title>}{<date>}
+\newcommand*{\cvhonor}[3]{%
+  \honorpositionstyle{#1} & \honortitlestyle{#2} & \entrydatestyle{#3} \\
 }
 
 % Define a line of cv information(skill)
 % Usage: \cvskill{<type>}{<skillset>}
 \newcommand*{\cvskill}[2]{%
 	\skilltypestyle{#1} & \skillsetstyle{#2} \\
-}
-
-% Define an environment for cvitems(for cventry)
-\newenvironment{cvitems}{%
-  \begin{justify}
-    \begin{itemize}[leftmargin=2.25ex, itemsep=0.20ex, parsep=0.50ex]
-      \renewcommand{\labelitemi}{\bullet}
-}{%
-  \end{itemize}
-  \end{justify}
-  \vspace{\acvEntrySectionSkip}
 }
