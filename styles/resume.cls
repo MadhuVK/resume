@@ -168,17 +168,18 @@
 %-------------------------------------------------------------------------------
 %% Define helper macros a user can change easily
 % Header
-\newcommand{\acvHeaderAfterNameSkip}{.4mm}
-\newcommand{\acvHeaderAfterPositionSkip}{.4mm}
-\newcommand{\acvHeaderIconSep}{\space}
-\newcommand{\acvHeaderSocialSep}{\quad\textbar\quad}
-\newcommand{\acvHeaderAfterSocialSkip}{6mm}
-\newcommand{\acvHeaderAfterQuoteSkip}{5mm}
+\newcommand{\HeaderAfterNameSkip}{.4mm}
+\newcommand{\HeaderAfterPositionSkip}{.4mm}
+\newcommand{\HeaderIconSep}{\space}
+\newcommand{\HeaderSocialSep}{\quad\textbar\quad}
+\newcommand{\HeaderAfterSocialSkip}{6mm}
+\newcommand{\HeaderAfterQuoteSkip}{5mm}
 
 % Others
-\newcommand{\acvSectionTopSkip}{0mm}
-\newcommand{\acvSectionContentTopSkip}{-.75mm}
-\newcommand{\acvEntrySectionSkip}{-5.5mm}
+\newcommand{\SectionTopSkip}{0mm}
+\newcommand{\SectionContentTopSkip}{-.75mm}
+\newcommand{\HonorTopSkip}{-1.5mm}
+\newcommand{\EntrySectionSkip}{-5.5mm}
 
 
 %-------------------------------------------------------------------------------
@@ -190,7 +191,7 @@
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
 % Use to draw horizontal line with specific thickness
-\def\vhrulefill#1{\leavevmode\leaders\hrule\@height#1\hfill \kern\z@}
+\def\vhrulefill#1{\leavevmode\leaders\hrule\@width\textwidth\@height#1\hfill \kern\z@}
 
 % Use to execute conditional statements by checking empty string
 \newcommand*{\ifempty}[3]{\ifthenelse{\isempty{#1}}{#2}{#3}}
@@ -206,40 +207,40 @@
   \setlength{\headertextwidth}{\textwidth}
   \begin{minipage}[c]{\headertextwidth}
     \ifthenelse{\equal{#1}{L}}{\raggedright}{\ifthenelse{\equal{#1}{R}}{\raggedleft}{\centering}}
-    \headerfirstnamestyle{\@firstname}~~~~\headerlastnamestyle{\@lastname}\\[\acvHeaderAfterNameSkip]%
+    \headerfirstnamestyle{\@firstname}~~~~\headerlastnamestyle{\@lastname}\\[\HeaderAfterNameSkip]%
     \headerpositionstyle{
       {\enskip\cdotp\enskip}\@position
       {\enskip\cdotp\enskip}\@subposition
       {\enskip\cdotp\enskip}
-    }\\[\acvHeaderAfterPositionSkip]
+    }\\[\HeaderAfterPositionSkip]
     \headersocialstyle{%
       \newbool{isstart}%
       \setbool{isstart}{true}%
       \ifthenelse{\isundefined{\@email}}%
         {}%
         {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{mailto:\@email}{\faEnvelope\acvHeaderIconSep\@email}%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\HeaderSocialSep}%
+          \href{mailto:\@email}{\faEnvelope\HeaderIconSep\@email}%
         }%
       \ifthenelse{\isundefined{\@homepage}}%
         {}%
         {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{\@homepage}{\faHome\acvHeaderIconSep\@homepage}%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\HeaderSocialSep}%
+          \href{https://\@homepage}{\faHome\HeaderIconSep\@homepage}%
         }%
       \ifthenelse{\isundefined{\@github}}%
         {}%
         {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://github.com/\@github}{\faGithubSquare\acvHeaderIconSep\@github}%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\HeaderSocialSep}%
+          \href{https://github.com/\@github}{\faGithubSquare\HeaderIconSep\@github}%
         }%
       \ifthenelse{\isundefined{\@linkedin}}%
         {}%
         {%
-          \ifbool{isstart}{\setbool{isstart}{false}}{\acvHeaderSocialSep}%
-          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedin\acvHeaderIconSep\@linkedin}%
+          \ifbool{isstart}{\setbool{isstart}{false}}{\HeaderSocialSep}%
+          \href{https://www.linkedin.com/in/\@linkedin}{\faLinkedin\HeaderIconSep\@linkedin}%
         }%
-    } \\[\acvHeaderAfterSocialSkip]%
+    } \\[\HeaderAfterSocialSkip]%
   \end{minipage}%
 }
 
@@ -252,12 +253,12 @@
 }{%
   \end{itemize}
   \end{justify}
-  \vspace{\acvEntrySectionSkip}
+  \vspace{\EntrySectionSkip}
 }
 
 % Define an environment for cventry
 \newenvironment{cventries}{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\SectionContentTopSkip}
   \begin{center}
 }{%
   \end{center}
@@ -265,19 +266,15 @@
 
 % Define an environment for cvhonor
 \newenvironment{cvhonors}{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\SectionContentTopSkip}
   \begin{center}
-    \setlength\tabcolsep{0pt}
-    \setlength{\extrarowheight}{0pt}
-    \begin{tabular*}{\textwidth}{R{2.5cm} L{\textwidth - 2.0cm} R{2.5cm}}
 }{%
-    \end{tabular*}
   \end{center}
 }
 
 % Define an environment for cvskill
 \newenvironment{cvskills}{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\SectionContentTopSkip}
   \begin{center}
     \setlength\tabcolsep{1ex}
     \setlength{\extrarowheight}{0pt}
@@ -290,7 +287,7 @@
 % Define a section for CV
 % Usage: \cvsection{<section-title>}
 \newcommand{\cvsection}[1]{%
-  \vspace{\acvSectionTopSkip}
+  \vspace{\SectionTopSkip}
   \sectionstyle{#1}
   \phantomsection
   \color{sectiondivider}\vhrulefill{0.9pt}
@@ -299,7 +296,7 @@
 % Define a subsection for CV
 % Usage: \cvsubsection{<subsection-title>}
 \newcommand{\cvsubsection}[1]{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\SectionContentTopSkip}
   \subsectionstyle{#1}
   \phantomsection
 }
@@ -307,12 +304,12 @@
 % Define an entry of cv degrees
 % Usage: \cveducation{<title>}{<date>}{<degree>}{description>}
 \newcommand*{\cveducation}[4]{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\SectionContentTopSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
     \entrytitlestyle{#1} & \entrydatestyle{#2} \\
-    \entrypositionstyle{#3} \\ [\acvEntrySectionSkip]
+    \entrypositionstyle{#3} \\ [\EntrySectionSkip]
     \multicolumn{2}{L{\textwidth}}{\descriptionstyle{#4}}
   \end{tabular*}%
 }
@@ -320,7 +317,7 @@
 % Define an entry of cv information
 % Usage: \cventry{<position>}{<title>}{<skills>}{<date>}{<description>}
 \newcommand*{\cventry}[5]{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\SectionContentTopSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
@@ -334,7 +331,7 @@
 % Hack: Define an entry of cv information with 3 entries
 % Usage: \cvthreeentry{<organization>}{<skills>}[{<position>}{<date>}]x3{<description>}
 \newcommand*{\cvthreeentry}[9]{%
-  \vspace{\acvSectionContentTopSkip}
+  \vspace{\SectionContentTopSkip}
   \setlength\tabcolsep{0pt}
   \setlength{\extrarowheight}{0pt}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} L{\textwidth - 4.5cm} R{4.5cm}}
@@ -350,7 +347,12 @@
 % Define a line of cv information(honor, award or something else)
 % Usage: \cvhonor{<position>}{<title>}{<date>}
 \newcommand*{\cvhonor}[3]{%
-  \honorpositionstyle{#1} & \honortitlestyle{#2} & \entrydatestyle{#3} \\
+  \vspace{\HonorTopSkip}
+  \setlength\tabcolsep{.25cm}
+  \setlength{\extrarowheight}{0pt}
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} R{2.5cm} L{\textwidth - 8cm} R{4.5cm}}
+    \honorpositionstyle{#1} & \honortitlestyle{#2} & \entrydatestyle{#3} \\
+  \end{tabular*}%
 }
 
 % Define a line of cv information(skill)
